@@ -27,13 +27,22 @@
     amp-carousel {
         border: 1px solid #999999;
     }
+    @media only screen and (max-width: 767px) {
+      .container, .dataChart table {
+        margin: 0 auto;
+        width: 98%;
+      }
+      amp-carousel {
+        height: 200px;
+      }
+    }
   </style>
 </head>
 <body>
     <div class="container">
         <h1>sample AMP email data chart</h1>
         <p>horizontal data charts utilizing <code>amp-carousel</code> and <code>amp-fit-text</code></p>
-            <amp-carousel width="600" height="200" layout="fixed" type="slides">
+            <amp-carousel width="600" height="200" layout="responsive" type="slides" controls>
                 <table class="dataChart">
                     <tr>
                         <td>
