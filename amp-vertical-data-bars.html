@@ -1,62 +1,69 @@
 <!doctype html>
 <html ⚡4email data-css-strict>
 <head>
-    <meta charset="utf-8">
-    <script async src="https://cdn.ampproject.org/v0.js"></script>
-    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-    <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
-    <style amp4email-boilerplate>body{visibility:hidden}</style>
-    <style amp-custom>
-        .container {
-            border: 1px solid #cccccc;
-            text-align: center;
-            height: 600px;
-            width: 700px;
-            margin: 0 auto;
-        }
-        .vertChart table tr:nth-child(2) td:hover {
-            opacity: .65;
-            transition: opacity 0.2s ease-out;
-        }
-        .vertChart table tr:nth-child(1) td {
-            white-space: nowrap;
-        }
-        .vertChart table tr:nth-child(3) td {
-            padding: 0 0 20px 0;
-        }
-        .vertChart table tr:nth-child(odd) td {
-            color: #000000;
-            font-family: 'Courier New';
-            font-size: 12px;
-            max-width: 50px; /* max-width and white-space is needed to prevent long bottom labels from pushing up the data bar up. That would result in an uneven x-axis in this chart. */
-            white-space: nowrap;
-            padding: 0;
-            text-align: center;
-        }
-        .vertChart {
-            border: 1px solid #cccccc;
-            width: 550px;
-            height: 300px;
-        }
-        .amp-carousel-button-next {
-            background-image: url("https://user-images.githubusercontent.com/6575035/173212083-983cbf9b-d671-4e6a-90e7-d3c52cdcddf5.png");
-            background-size: 50px 50px;
-            right: 275px;
-            top: 92%;
-        }
-        .amp-carousel-button-prev {
-            background-image: url("https://user-images.githubusercontent.com/6575035/173212090-b80f4b81-9e2a-46f2-bbe6-74e86f9f27de.png");
-            background-size: 50px 50px;
-            left: 275px;
-            top: 92%;
-        }
-        .amp-carousel-button {
-            height: 60px;
-            width: 60px;
-            background-color: transparent;
-            outline: none;
-        }
-    </style>
+<meta charset="utf-8">
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+<style amp4email-boilerplate>body{visibility:hidden}</style>
+<style amp-custom>
+    .container {
+        border: 1px solid #cccccc;
+        text-align: center;
+        height: auto;
+        width: 75%;
+        margin: 0 auto;
+    }
+    .vertChart table tr:nth-child(2) td:hover {
+        opacity: .65;
+        transition: opacity 0.2s ease-out;
+    }
+    .vertChart table tr:nth-child(1) td {
+        white-space: nowrap;
+    }
+    .vertChart table tr:nth-child(3) td {
+        padding: 0 0 20px 0;
+    }
+    .vertChart table tr:nth-child(odd) td {
+        color: #000000;
+        font-family: 'Courier New';
+        font-size: 12px;
+        /* max-width: 50px;
+        white-space: nowrap; 
+        old note: max-width and white-space is needed to prevent long bottom labels from pushing up the data bar up. That would result in an uneven x-axis in this chart.
+        06/12/22: these are interfering with mobile view, commenting out for now;
+        */
+        padding: 0;
+        text-align: center;
+    }
+    .vertChart {
+        /* border: 1px solid #cccccc;
+        width: 550px;
+        height: 300px; */
+    }
+    .amp-carousel-button-next {
+        background-image: url("https://user-images.githubusercontent.com/6575035/173212083-983cbf9b-d671-4e6a-90e7-d3c52cdcddf5.png");
+        background-size: 50px 50px;
+    }
+    .amp-carousel-button-prev {
+        background-image: url("https://user-images.githubusercontent.com/6575035/173212090-b80f4b81-9e2a-46f2-bbe6-74e86f9f27de.png");
+        background-size: 50px 50px;
+    }
+    .amp-carousel-button {
+        height: 60px;
+        width: 60px;
+        background-color: transparent;
+        outline: none;
+    }
+    @media only screen and (max-width: 765px) {
+    .container {
+        width: 100%;
+    }
+    amp-carousel {
+        height: 100%;
+    }
+}
+</style>
 </head>
 <body>
     <div class="container">
