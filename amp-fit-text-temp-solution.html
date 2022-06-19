@@ -1,0 +1,38 @@
+<!doctype html>
+<html ⚡4email data-css-strict>
+<head>
+<meta charset="utf-8">
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+<style amp4email-boilerplate>body{visibility:hidden}</style>
+<style amp-custom>
+h1 {
+margin: 1rem;
+}
+</style>
+</head>
+<body>
+<h1><code>amp-fit-text</code> rendering issue - temporary fix</h1>
+<p>in combination with <code>amp-list</code> and <code>amp-mustache</code>, <code>amp-fit-text</code> runs into display issues when nested within <code>amp-carousel</code>. for more on this specific <a href="https://github.com/ampproject/amphtml/issues/38248">use case</a>. as a temporary fix, swap out <code>amp-carousel</code> with <code>amp-bind</code> and the <code>select</code> HTML element to create a similar experience.</p>
+<select on="change:AMP.setState({ option: event.value })">
+<option value="0">No selection</option>
+<option value="1">Option 1</option>
+<option value="2">Option 2</option>
+</select>
+<div hidden [hidden]="option != 1">
+<amp-list width="100" height="200" layout="responsive" src="https://preview.amp.dev/static/inline-examples/data/amp-list-urls.json" template="myTemplate1"></amp-list>
+<template type="amp-mustache" id="myTemplate1">
+<amp-fit-text width="140" height="40" layout="fixed" min-font-size="10" max-font-size="16" style="border: 5px solid red;">{{title}}</amp-fit-text>
+</template>
+</div>
+<div hidden [hidden]="option != 2">
+<amp-list width="100" height="200" layout="responsive" src="https://preview.amp.dev/static/inline-examples/data/amp-list-urls.json" template="myTemplate2"></amp-list>
+<template type="amp-mustache" id="myTemplate2">
+<amp-fit-text width="140" height="40" layout="fixed" min-font-size="10" max-font-size="16" style="border: 5px solid blue;">{{url}}</amp-fit-text>
+</template>
+</div>
+</body>
+</html>
