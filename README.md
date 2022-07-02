@@ -3,6 +3,7 @@
 * [AMP for Email Component Documentation](https://amp.dev/documentation/components/?format=email)
 * [Gmail AMP for Email Playground](https://amp.gmail.dev/playground/)
 * [amp.dev Playground](https://playground.amp.dev/?mode=Responsive&runtime=amp4email#)
+* [Mustache Manual](https://mustache.github.io/mustache.5.html)
 
 ## Background
 
