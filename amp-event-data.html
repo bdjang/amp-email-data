@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ⚡4email data-css-strict lang="en">
+<head>
+<meta charset="utf-8">
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<style amp4email-boilerplate>
+body { visibility: hidden }
+</style>
+<style amp-custom>
+    .container { text-align: center; }
+    .container div { border: 1px dashed #000; font-family: monospace; margin: 40px auto; padding: 40px; width: 50%; }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>sample AMP email using <code>AMP.setState()</code> and event-related data</h1>
+        <p>using <a href="https://amp.dev/documentation/components/amp-bind/?format=email#expression-grammar">expression grammar</a> with <code>amp-bind</code></p>
+        <!-- The "change" event of this <input> element contains a "value" variable that can be referenced via "event.value". -->
+        <select on="change:AMP.setState({ option: event.value })">
+            <option value="0">No selection</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+            <option value="5">Option 5</option>
+            <option value="6">Option 6</option>
+            <option value="7">Option 7</option>
+            <option value="8">Option 8</option>
+            <option value="9">Option 9</option>
+            <option value="10">Option 10</option>
+        </select>
+
+        <!-- When the expression evaluates to true, the content stays hidden. If the expression evaluates to false, content becomes visible. Tricky since true values evaluate to hidden -->
+        <!-- Displays when option.value is 3 or less except for 0 -->
+        <div hidden [hidden]="option < 1 || option >= 4">Displays when option.value is 3 or less except for 0</div>
+
+        <!-- Displays when option.value is greater than 3 and less than 8 -->
+        <div hidden [hidden]="option <= 3 || option >= 8">Displays when option.value is greater than 3 and less than 8</div>
+
+        <!-- Displays when option.value is greater than 7 -->
+        <div hidden [hidden]="option <= 7">Displays when option.value is greater than 7</div>
+    </div>
+</body>
+</html>
