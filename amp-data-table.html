@@ -12,11 +12,44 @@
 <style amp-custom>
 
     /* LAYOUT STYLES */
-    .container { border: 1px solid #cccccc; font-family: Georgia, Times New Roman, Times, serif; font-size: 16px; font-weight: 400; line-height: 1.65em; margin: auto; max-width: 750px; padding: 40px 0 40px 0; text-align: center; }
-    .container p { border-bottom: 1px solid #ccc; max-width: 600px; margin: 0 auto 20px; padding: 0 0 20px 0; }
-    .container div:nth-child(2) { width: 100%; }
-    table tr td { border-bottom: 1px dotted #ccc; font-family: monospace; width: 20%; }
-    button { margin: 20px 0; }
+    .container {
+        border: 1px solid #cccccc;
+        font-family: Georgia, Times New Roman, Times, serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.65em;
+        margin: auto;
+        max-width: 750px;
+        padding: 40px 0 40px 0;
+        text-align: center;
+    }
+    .container p {
+        border-bottom: 1px solid #ccc;
+        max-width: 600px;
+        margin: 0 auto 20px;
+        padding: 0 0 20px 0;
+    }
+    .container div:nth-child(2) {
+        width: 100%;
+    }
+    table tr td {
+        border-bottom: 1px dotted #ccc;
+        font-family: monospace;
+        width: 20%;
+    }
+    button {
+        margin: 20px 0;
+    }
+    @media only screen and (max-width: 765px) {
+        .dataTable table tr td:nth-child(1) {
+            padding: 0 0 0 3%;
+            text-align: left;
+        }
+        .dataTable table tr td:nth-child(5) {
+            padding: 0 3% 0 0;
+            text-align: right;
+        }
+    }
 
 </style>
 </head>
@@ -34,14 +67,14 @@
         <div><button on="tap:dataSet.refresh">Refresh Stock Data</button></div>
         <table cellspacing="0" cellpadding="0" width="100%">
             <tr>
-                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">SYMBOL</amp-fit-text></td>
-                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">NAME</amp-fit-text></td>
-                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">PRICE/VALUE</amp-fit-text></td>
-                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">CHANGE</amp-fit-text></td>
-                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">CHANGE PERCENTAGE</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">SYMBOL</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">NAME</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">PRICE/VALUE (USD)</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">CHANGE</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">CHANGE PERCENTAGE</amp-fit-text></td>
             </tr>
         </table>
-        <div hidden [hidden]="option != 1">
+        <div hidden [hidden]="option != 1" class="dataTable">
             <amp-list width="1000" height="200" layout="responsive" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate1" id="dataSet">
                 <!-- 7.3.22: Added a placeholder here for practice -->
                 <div placeholder><div>Loading <code>STOCK</code> data...</div></div>
@@ -51,11 +84,11 @@
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <!- {{#stockData1}} ->
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14" style="color: green;">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14" style="color: green;">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                     <!- {{/stockData1}} ->
                 </table> -->
@@ -63,143 +96,143 @@
                 {{#stockData1}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14" style="color: green;">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData1}}
                 {{#stockData2}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData2}}
                 {{#stockData3}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData3}}
                 {{#stockData4}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData4}}
                 {{#stockData5}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData5}}
                 {{#stockData6}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData6}}
                 {{#stockData7}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData7}}
                 {{#stockData8}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData8}}
                 {{#stockData9}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData9}}
                 {{#stockData10}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData10}}
                 {{#stockData11}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData11}}
                 {{#stockData12}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData12}}
                 {{#stockData13}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
                 {{/stockData13}}
