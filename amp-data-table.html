@@ -45,6 +45,10 @@
     }
     div placeholder {font-size: 1000px;}
     @media only screen and (max-width: 765px) {
+        .container {
+            margin: 0 auto;
+            width: 99%;
+        }
         .dataTable table tr td:nth-child(1) {
             padding: 0 0 0 3%;
             text-align: left;
@@ -79,7 +83,7 @@
             </tr>
         </table>
         <div hidden [hidden]="option != 1" class="dataTable">
-            <amp-list width="1000" height="200" layout="responsive" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate1" id="dataSet">
+            <amp-list width="700" height="600" layout="responsive" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate1" id="dataSet">
                 <!-- 7.3.22: Added a placeholder here for practice -->
                 <div placeholder id="placeholderText">Loading <code>STOCK</code> data...</div>
             </amp-list>
@@ -244,6 +248,8 @@
             </template>
         </div>
     </div>
+    <!-- 8.21.22: Added non-breaking space above the closing body tag to prevent table from cutting off in Gmail App. Some reason, all amp-list layout forms are cutting off the border-bottom. *Temporary solution* -->
+    &nbsp;
 
 </body>
 </html>
