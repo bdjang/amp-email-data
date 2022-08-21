@@ -25,7 +25,7 @@
     .container div:nth-child(2) {
         width: 100%;
     }
-    amp-list div { /* Placeholder text */
+    amp-list #placeholderText { /* Placeholder text */
         font-size: 24px;
         padding: 50px 0 0 0;
     }
@@ -59,7 +59,7 @@
         <p>table data chart utilizing <code>amp-list</code> and <code>amp-mustache</code> for JSON data rendering</p>
         <select on="change:AMP.setState({ option: event.value }),dataSet.refresh">
             <option value="0">No selection</option>
-            <option value="1">DOW Chart</option>
+            <option value="1">DOW Table Chart</option>
         </select>
         <!-- 8.20.22: Loads updated content... (message from Gmail) -->
         <div><button on="tap:dataSet.refresh">Refresh Stock Data</button></div>
@@ -75,7 +75,7 @@
         <div hidden [hidden]="option != 1" class="dataTable">
             <amp-list width="1000" height="200" layout="responsive" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate1" id="dataSet">
                 <!-- 7.3.22: Added a placeholder here for practice -->
-                <div placeholder>Loading <code>STOCK</code> data...</div>
+                <div placeholder id="placeholderText">Loading <code>STOCK</code> data...</div>
             </amp-list>
             <template type="amp-mustache" id="myTemplate1">
                 <!-- 8.20.22: amp-mustache rendering behavior. The code block below will render in Gmail playground and AMP playground only if the mustache brackets are commented out. However, test sends WILL NOT render the JSON data as all making this style useless. Even when the mustache brackets are uncommented, the test emails sent from Gmail playground do not render the JSON data.
