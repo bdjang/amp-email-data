@@ -7,6 +7,7 @@
 <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
 <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
 <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+<!-- <script async custom-element="amp-timeago" src="https://cdn.ampproject.org/v0/amp-timeago-0.1.js"></script> -->
 <style amp4email-boilerplate>body{visibility:hidden}</style>
 
 <style amp-custom>
@@ -83,6 +84,7 @@
                 <div placeholder id="placeholderText">Loading <code>STOCK</code> data...</div>
             </amp-list>
             <template type="amp-mustache" id="myTemplate1">
+                <!-- <p>Data Timestamp: <amp-timeago layout="responsive" width="100" height="40" datetime="{{stockUpdate}}" locale="en">Saturday 11 April 2017 00.37</amp-timeago></p> -->
                 <!-- 8.20.22: amp-mustache rendering behavior. The code block below will render in Gmail playground and AMP playground only if the mustache brackets are commented out. However, test sends WILL NOT render the JSON data as all making this style useless. Even when the mustache brackets are uncommented, the test emails sent from Gmail playground do not render the JSON data.
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <!- {{#stockData1}} ->
