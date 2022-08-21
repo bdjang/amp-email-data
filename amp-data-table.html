@@ -10,34 +10,13 @@
 <style amp4email-boilerplate>body{visibility:hidden}</style>
 
 <style amp-custom>
-    /** { border: 1px dotted red !important; }
-    td { border: 1px dotted violet !important; }
-    img { border: 1px solid blue !important; }
-    br { border: 1px dashed limegreen !important; content: "A" !important; display: block !important; }
-    a { border: 1px solid #f441d0 !important; }*/
 
     /* LAYOUT STYLES */
-    .container {
-        border: 1px solid #cccccc;
-        font-family: monospace, Georgia, Times New Roman, Times, serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 1.65em;
-        margin: auto;
-        max-width: 750px;
-        padding: 40px 0 40px 0;
-        text-align: center;
-    }
-    .container p {
-        border-bottom: 1px solid #cccccc;
-        max-width: 600px;
-        margin: 0 auto 20px;
-        padding: 0 0 20px 0;
-    }
-    table tr td {
-        border-bottom: 1px solid #000;
-        width: 20%;
-    }
+    .container { border: 1px solid #cccccc; font-family: Georgia, Times New Roman, Times, serif; font-size: 16px; font-weight: 400; line-height: 1.65em; margin: auto; max-width: 750px; padding: 40px 0 40px 0; text-align: center; }
+    .container p { border-bottom: 1px solid #ccc; max-width: 600px; margin: 0 auto 20px; padding: 0 0 20px 0; }
+    .container div:nth-child(2) { width: 100%; }
+    table tr td { border-bottom: 1px dotted #ccc; font-family: monospace; width: 20%; }
+    button { margin: 20px 0; }
 
 </style>
 </head>
@@ -45,54 +24,185 @@
 <body>
 
     <div class="container">
-        <select on="change:AMP.setState({ option: event.value }),myTemplate1.refresh">
+        <h1>sample AMP email table chart</h1>
+        <p>table data chart utilizing <code>amp-list</code> and <code>amp-mustache</code> for JSON data rendering</p>
+        <select on="change:AMP.setState({ option: event.value }),dataSet.refresh">
             <option value="0">No selection</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
+            <option value="1">DOW 13 Chart</option>
         </select>
-        <div><button on="tap:myTemplate1.refresh">Refresh Data</button></div>
+        <!-- 8.20.22: Loads updated content... (message from Gmail) -->
+        <div><button on="tap:dataSet.refresh">Refresh Stock Data</button></div>
+        <table cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">SYMBOL</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">NAME</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">PRICE/VALUE</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">CHANGE</amp-fit-text></td>
+                <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">CHANGE PERCENTAGE</amp-fit-text></td>
+            </tr>
+        </table>
         <div hidden [hidden]="option != 1">
-            <table cellspacing="0" cellpadding="0" width="600">
-                <tr>
-                    <td>SYMBOL</td>
-                    <td>NAME</td>
-                    <td>PRICE/VALUE</td>
-                    <td>CHANGE</td>
-                    <td>CHANGE PERCENTAGE</td>
-                </tr>
-            </table>
-            <table cellspacing="0" cellpadding="0" width="600">
-                    <tr>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14"><span style="color: red;">&#x25B2; &#x25BC;</span>AMZN <span style="color: red;">&#8593; &#8595;</span></amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">Amazon.com, Inc.</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">143.55 USD</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14" style="color: green;">+2.91</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14" style="color: green;">2.07% &#8593;</amp-fit-text></td>
-                    </tr>
-                </table>
-            <amp-list width="100" height="200" layout="responsive" src="https://preview.amp.dev/static/inline-examples/data/amp-list-urls.json" template="myTemplate1">
+            <amp-list width="1000" height="200" layout="responsive" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate1" id="dataSet">
                 <!-- 7.3.22: Added a placeholder here for practice -->
-                <div placeholder><div>Loading <code>TITLE</code> data...</div></div>
+                <div placeholder><div>Loading <code>STOCK</code> data...</div></div>
             </amp-list>
             <template type="amp-mustache" id="myTemplate1">
-                <table cellspacing="0" cellpadding="0" width="600">
+                <!-- 8.20.22: amp-mustache rendering behavior. The code block below will render in Gmail playground and AMP playground only if the mustache brackets are commented out. However, test sends WILL NOT render the JSON data as all making this style useless. Even when the mustache brackets are uncommented, the test emails sent from Gmail playground do not render the JSON data.
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <!- {{#stockData1}} ->
                     <tr>
-                        <td>
-                            <amp-fit-text width="200" height="40" layout="fixed" min-font-size="10" max-font-size="16">{{title}}</amp-fit-text>
-                        </td>
-                        <td>
-                            <amp-fit-text width="200" height="40" layout="fixed" min-font-size="10" max-font-size="16">{{url}}</amp-fit-text>
-                        </td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14" style="color: green;">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                    <!- {{/stockData1}} ->
+                </table> -->
+                <!-- 8.2022: it seems that the best practice for rendering mustache content using table cells is to wrap the entire code block, including the outer table, within the mustache brackets. the code block below renders in both Gmail playground and test emails -->
+                {{#stockData1}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14" style="color: green;">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
-            </template>
-        </div>
-        <div hidden [hidden]="option != 2">
-            <amp-list width="100" height="200" layout="responsive" src="https://preview.amp.dev/static/inline-examples/data/amp-list-urls.json" template="myTemplate2">
-                <div placeholder><div>Loading <code>URL</code> data...</div></div>
-            </amp-list>
-            <template type="amp-mustache" id="myTemplate2">
-                <amp-fit-text width="140" height="40" layout="fixed" min-font-size="10" max-font-size="16" style="border: 5px solid blue;">{{url}}</amp-fit-text>
+                {{/stockData1}}
+                {{#stockData2}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData2}}
+                {{#stockData3}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData3}}
+                {{#stockData4}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData4}}
+                {{#stockData5}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData5}}
+                {{#stockData6}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData6}}
+                {{#stockData7}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData7}}
+                {{#stockData8}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData8}}
+                {{#stockData9}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData9}}
+                {{#stockData10}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData10}}
+                {{#stockData11}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData11}}
+                {{#stockData12}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData12}}
+                {{#stockData13}}
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{name}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{value}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
+                        <td><amp-fit-text width="120" height="40" layout="fixed" min-font-size="10" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
+                    </tr>
+                </table>
+                {{/stockData13}}
             </template>
         </div>
     </div>
