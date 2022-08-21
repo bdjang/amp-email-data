@@ -14,7 +14,9 @@
     /* LAYOUT STYLES */
     .container {
         border: 1px solid #cccccc;
+        margin: 0 auto;
         text-align: center;
+        width: 700px;
     }
     .container p {
         border-bottom: 1px solid #ccc;
@@ -33,6 +35,9 @@
         border-bottom: 1px dotted #ccc;
         font-family: monospace;
         width: 20%;
+    }
+    .dataTable table:last-child tr td { /* Removes border-bottom for last stock listing */
+        border-bottom: none;
     }
     button {
         margin: 20px 0;
