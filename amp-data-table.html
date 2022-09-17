@@ -82,6 +82,7 @@
         </select>
         <amp-list width="auto" height="70" layout="fixed-height" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate2" id="timestamp" hidden [hidden]="option != 1">
             <template type="amp-mustache" id="myTemplate2">
+                <!-- 09.17.22: Was encountering a bug when using "stockUpdate": "2022-08-29T12:15:59.00Z-05:00" - the time stamp is in the incorrect format. Must be either "2022-08-29T12:15:59Z" for UTC or "2022-08-29T12:15:59-05:00" for time zone offset. -->
                 <article>Updated:<amp-timeago layout="responsive" width="100" height="40" datetime="{{stockUpdate}}" locale="en">Saturday 11 April 2017 00.37</amp-timeago></article>
                 <!-- 08.29.22: This renders correctly in Gmail.com and displays "3 hours ago" but in Gmail app, it displays "just now". When I remove "00Z-05:00" to make it "2022-08-29T12:15:59", it works in Gmail app and in Gmail.com. Something is wrong with the timezone codes and I believe they are interfering with the Gmail app amp-timeago rendering. -->
             </template>
