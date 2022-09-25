@@ -12,8 +12,14 @@
         height: auto;
         width: 100%;
     }
-    .container button {
+    section {
+        padding: 60px 60px 0;
+    }
+    button {
         margin: 20px 0 0 0;
+    }
+    select {
+        margin: 0 0 20px 0;
     }
     .dataChart table tr td {
         height: 24px;
@@ -25,9 +31,6 @@
     }
     .dataChart, .dataChart table {
         width: 100%;
-    }
-    select {
-        margin: 0 0 20px 0;
     }
     /* LIGHT/DARK MODE STYLES */
     .darkStyles {
@@ -59,17 +62,19 @@
         </script>
     </amp-state>
     <div class="container">
-        <button on="tap:AMP.setState({mode: 'darkMode'})">Dark Mode</button>
-        <button on="tap:AMP.setState({mode: 'lightMode'})">Light Mode</button>
-        <h1>sample AMP email data chart</h1>
-        <p>horizontal data charts utilizing <code>amp-bind</code> and <code>amp-fit-text</code></p>
-      	<select on="change:AMP.setState({ option: event.value })">
-            <option value="0">No selection</option>
-            <option value="1">Data Set 1</option>
-            <option value="2">Data Set 2</option>
-            <option value="3">Data Set 3</option>
-            <option value="4">Data Set 4</option>
-        </select>
+        <section>
+            <button on="tap:AMP.setState({mode: 'lightMode'})">Light Mode</button>
+            <button on="tap:AMP.setState({mode: 'darkMode'})">Dark Mode</button>
+            <h1>sample AMP email data chart</h1>
+            <p>horizontal data charts utilizing <code>amp-bind</code> and <code>amp-fit-text</code></p>
+            <select on="change:AMP.setState({ option: event.value })">
+                <option value="0">No selection</option>
+                <option value="1">Data Set 1</option>
+                <option value="2">Data Set 2</option>
+                <option value="3">Data Set 3</option>
+                <option value="4">Data Set 4</option>
+            </select>
+        </section>
         <table class="dataChart" hidden [hidden]="option != 1">
             <tr>
                 <td>
