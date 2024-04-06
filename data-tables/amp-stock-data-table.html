@@ -30,7 +30,7 @@
     }
     amp-list #placeholderText { /* Placeholder text */
         font-size: 24px;
-        padding: 50px 0 0 0;
+        padding: 50px 0;
     }
     table tr td {
         border-bottom: 1px dotted #ccc;
@@ -74,8 +74,8 @@
 <body>
 
     <div class="container">
-        <h1>sample AMP email table chart</h1>
-        <p>table data chart utilizing <code>amp-list</code> and <code>amp-mustache</code> for JSON data rendering; <code>amp-fit-text</code> for font size adjustment; <code>amp-timeago</code> for fuzzy timestamp</p>
+        <h1>sample ⚡AMP email table chart</h1>
+        <p>AMP email table chart template utilizing <code><a href="https://amp.dev/documentation/components/email/amp-list">amp-list</a></code> and <code><a href="https://amp.dev/documentation/components/email/amp-mustache">amp-mustache</a></code> for JSON data rendering; <code><a href="https://amp.dev/documentation/components/email/amp-fit-text">amp-fit-text</a></code> for font size adjustment; <code><a href="https://amp.dev/documentation/components/email/amp-timeago">amp-timeago</a></code> for fuzzy timestamp</p>
         <select on="change:AMP.setState({ option: event.value }),dataSet.refresh,dataSet.changeToLayoutContainer()">
             <option value="0">No selection</option>
             <option value="1">DOW Table Chart</option>
@@ -117,7 +117,7 @@
                     <!- {{/stockData1}} ->
                 </table> -->
                 <!-- 8.2022: it seems that the best practice for rendering mustache content using table cells is to wrap the entire code block, including the outer table, within the mustache brackets. the code block below renders in both Gmail playground and test emails -->
-                {{#stockList01}}
+                {{#stockList}}
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
                         <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
@@ -127,7 +127,7 @@
                         <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{{changePercent}}}</amp-fit-text></td>
                     </tr>
                 </table>
-                {{/stockList01}}
+                {{/stockList}}
             </template>
         </div>
     </div>
