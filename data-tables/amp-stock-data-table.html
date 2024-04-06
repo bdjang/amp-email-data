@@ -39,11 +39,7 @@
     }
     amp-list #placeholderText { /* Placeholder text */
         font-size: 24px;
-        padding: 50px 0 0 0;
-    }
-    div #placeholderText {
-        font-size: 20px;
-        margin: 0 0 60px 0;
+        padding: 50px 0;
     }
     amp-timeago {
         font-weight: bold;
@@ -80,12 +76,9 @@
         </select>
         <amp-list width="auto" height="70" layout="fixed-height" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate2" id="timestamp" hidden [hidden]="option == 0">
             <template type="amp-mustache" id="myTemplate2">
-                <!-- 09.17.22: Was encountering a bug when using "stockUpdate": "2022-08-29T12:15:59.00Z-05:00" - the time stamp is in the incorrect format. Must be either "2022-08-29T12:15:59Z" for UTC or "2022-08-29T12:15:59-05:00" for time zone offset. -->
                 <article>Updated:<amp-timeago layout="responsive" width="100" height="40" datetime="{{stockUpdate}}" locale="en">Saturday 11 April 2017 00.37</amp-timeago></article>
-                <!-- 08.29.22: This renders correctly in Gmail.com and displays "3 hours ago" but in Gmail app, it displays "just now". When I remove "00Z-05:00" to make it "2022-08-29T12:15:59", it works in Gmail app and in Gmail.com. Something is wrong with the timezone codes and I believe they are interfering with the Gmail app amp-timeago rendering. -->
             </template>
         </amp-list>
-        <!-- 8.20.22: Loads updated content... (message from Gmail) -->
         <button hidden [hidden]="option == 0" on="tap:dataSet.refresh,timestamp.refresh,dataSet.changeToLayoutContainer()">Refresh Data</button>
         <table cellspacing="0" cellpadding="0" width="100%" hidden [hidden]="option == 0">
             <tr>
@@ -98,24 +91,9 @@
         </table>
         <div hidden [hidden]="option == 0" class="dataTable">
             <amp-list width="700" height="600" layout="responsive" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate1" id="dataSet">
-                <!-- 7.3.22: Added a placeholder here for practice -->
                 <div placeholder id="placeholderText">Loading <code>STOCK</code> data...</div>
             </amp-list>
-            <template type="amp-mustache" id="myTemplate1">
-                <!-- 8.20.22: amp-mustache rendering behavior. The code block below will render in Gmail playground and AMP playground only if the mustache brackets are commented out. However, test sends WILL NOT render the JSON data as all making this style useless. Even when the mustache brackets are uncommented, the test emails sent from Gmail playground do not render the JSON data.
-                <table cellspacing="0" cellpadding="0" width="100%">
-                    <!- {{#stockData1}} ->
-                    <tr>
-                        <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{value}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{{changeValue}}}</amp-fit-text></td>
-                        <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14" style="color: green;">{{{changePercent}}}</amp-fit-text></td>
-                    </tr>
-                    <!- {{/stockData1}} ->
-                </table> -->
-                <!-- 8.2022: it seems that the best practice for rendering mustache content using table cells is to wrap the entire code block, including the outer table, within the mustache brackets. the code block below renders in both Gmail playground and test emails -->
-                {{#stockList}}
+            <template type="amp-mustache" id="myTemplate1">{{#stockList}}
                 <table hidden [hidden]="option == 0" cellspacing="0" cellpadding="0" width="100%">
                     <tr>
                         <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
