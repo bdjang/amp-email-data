@@ -13,56 +13,54 @@
 <style amp-custom>
 
     /* LAYOUT STYLES */
-    .container {
+    main {
         border: 1px solid #cccccc;
         margin: 0 auto;
         text-align: center;
-        width: 700px;
+        width: 650px;
     }
-    .container p {
-        border-bottom: 1px solid #ccc;
-        max-width: 600px;
+    main p {
+        border-bottom: 1px solid #cccccc;
         margin: 0 auto 20px;
-        padding: 0 0 20px 0;
-    }
-    .container div:nth-child(2) {
-        width: 100%;
-    }
-    amp-list #placeholderText { /* Placeholder text */
-        font-size: 24px;
-        padding: 50px 0;
-    }
-    table tr td {
-        border-bottom: 1px dotted #ccc;
-        font-family: monospace;
-        width: 20%;
-    }
-    .dataTable table:last-child tr td { /* Removes border-bottom for last stock listing */
-        border-bottom: none;
+        padding: 0 20px 20px;
     }
     button {
         margin: 0 0 40px 0;
     }
-    div placeholder {
-        font-size: 1000px;
-    }
     select {
         margin: 0 0 20px 0;
+    }
+
+    /* DATA TABLE STYLES */
+    table tr td {
+        border-bottom: 1px dotted #cccccc;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        width: 20%;
+    }
+    amp-list #placeholderText { /* Placeholder text */
+        font-size: 24px;
+        padding: 50px 0 0 0;
+    }
+    div #placeholderText {
+        font-size: 20px;
+        margin: 0 0 60px 0;
     }
     amp-timeago {
         font-weight: bold;
         margin: 8px 0 0 0;
     }
+
+    /* MOBILE STYLES */
     @media only screen and (max-width: 765px) {
-        .container {
+        main {
             margin: 0 auto;
             width: 99%;
         }
-        .dataTable table tr td:nth-child(1) {
+        .dataTable table tr td:nth-child(1) { /* Targets left most column */
             padding: 0 0 0 3%;
             text-align: left;
         }
-        .dataTable table tr td:nth-child(5) {
+        .dataTable table tr td:nth-child(5) { /* Targets right most column */
             padding: 0 3% 0 0;
             text-align: right;
         }
@@ -73,14 +71,14 @@
 
 <body>
 
-    <div class="container">
-        <h1>sample ⚡AMP email table chart</h1>
-        <p>AMP email table chart template utilizing <code><a href="https://amp.dev/documentation/components/email/amp-list">amp-list</a></code> and <code><a href="https://amp.dev/documentation/components/email/amp-mustache">amp-mustache</a></code> for JSON data rendering; <code><a href="https://amp.dev/documentation/components/email/amp-fit-text">amp-fit-text</a></code> for font size adjustment; <code><a href="https://amp.dev/documentation/components/email/amp-timeago">amp-timeago</a></code> for fuzzy timestamp</p>
+    <main>
+        <h1>sample ⚡AMP email data table</h1>
+        <p>AMP email data table utilizing <code><a href="https://amp.dev/documentation/components/email/amp-list">amp-list</a></code> and <code><a href="https://amp.dev/documentation/components/email/amp-mustache">amp-mustache</a></code> for JSON data rendering; <code><a href="https://amp.dev/documentation/components/email/amp-fit-text">amp-fit-text</a></code> for mobile font size adjustment; and <code><a href="https://amp.dev/documentation/components/email/amp-timeago">amp-timeago</a></code> for fuzzy timestamp. The <code>select</code> and <code>button</code> HTML elements contain the <code><a href="https://amp.dev/documentation/components/email/amp-list#dynamic-resizing">changeToLayoutContainer()</a></code> action data table layout adjustment.</p>
         <select on="change:AMP.setState({ option: event.value }),dataSet.refresh,dataSet.changeToLayoutContainer()">
             <option value="0">No selection</option>
-            <option value="1">DOW Table Chart</option>
+            <option value="1">Stock List 01</option>
         </select>
-        <amp-list width="auto" height="70" layout="fixed-height" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate2" id="timestamp" hidden [hidden]="option != 1">
+        <amp-list width="auto" height="70" layout="fixed-height" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate2" id="timestamp" hidden [hidden]="option == 0">
             <template type="amp-mustache" id="myTemplate2">
                 <!-- 09.17.22: Was encountering a bug when using "stockUpdate": "2022-08-29T12:15:59.00Z-05:00" - the time stamp is in the incorrect format. Must be either "2022-08-29T12:15:59Z" for UTC or "2022-08-29T12:15:59-05:00" for time zone offset. -->
                 <article>Updated:<amp-timeago layout="responsive" width="100" height="40" datetime="{{stockUpdate}}" locale="en">Saturday 11 April 2017 00.37</amp-timeago></article>
@@ -88,8 +86,8 @@
             </template>
         </amp-list>
         <!-- 8.20.22: Loads updated content... (message from Gmail) -->
-        <button hidden [hidden]="option != 1" on="tap:dataSet.refresh,dataSet.changeToLayoutContainer(),timestamp.refresh">Refresh Data</button>
-        <table cellspacing="0" cellpadding="0" width="100%" hidden [hidden]="option != 1">
+        <button hidden [hidden]="option == 0" on="tap:dataSet.refresh,timestamp.refresh,dataSet.changeToLayoutContainer()">Refresh Data</button>
+        <table cellspacing="0" cellpadding="0" width="100%" hidden [hidden]="option == 0">
             <tr>
                 <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">SYMBOL</amp-fit-text></td>
                 <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">NAME</amp-fit-text></td>
@@ -98,7 +96,7 @@
                 <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">CHANGE PERCENTAGE</amp-fit-text></td>
             </tr>
         </table>
-        <div hidden [hidden]="option != 1" class="dataTable">
+        <div hidden [hidden]="option == 0" class="dataTable">
             <amp-list width="700" height="600" layout="responsive" src="https://amp.stripo.email/v1/list/woidjr/lldatademo" template="myTemplate1" id="dataSet">
                 <!-- 7.3.22: Added a placeholder here for practice -->
                 <div placeholder id="placeholderText">Loading <code>STOCK</code> data...</div>
@@ -118,7 +116,7 @@
                 </table> -->
                 <!-- 8.2022: it seems that the best practice for rendering mustache content using table cells is to wrap the entire code block, including the outer table, within the mustache brackets. the code block below renders in both Gmail playground and test emails -->
                 {{#stockList}}
-                <table cellspacing="0" cellpadding="0" width="100%">
+                <table hidden [hidden]="option == 0" cellspacing="0" cellpadding="0" width="100%">
                     <tr>
                         <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{{symbol}}}</amp-fit-text></td>
                         <td><amp-fit-text width="120" height="60" layout="responsive" min-font-size="4" max-font-size="14">{{name}}</amp-fit-text></td>
@@ -130,9 +128,7 @@
                 {{/stockList}}
             </template>
         </div>
-    </div>
-    <!-- 8.21.22: Added non-breaking space above the closing body tag to prevent table from cutting off in Gmail App. Some reason, all amp-list layout forms are cutting off the border-bottom. *Temporary solution* -->
-    &nbsp;
+    </main>
 
 </body>
 </html>
